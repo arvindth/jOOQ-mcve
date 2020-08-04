@@ -58,7 +58,7 @@ public class MCVETest {
 
     @Before
     public void setup() throws Exception {
-        connection = DriverManager.getConnection("jdbc:h2:~/mcve", "sa", "");
+        connection = DriverManager.getConnection("jdbc:postgresql://localhost/postgres", "postgres", "");
         ctx = DSL.using(connection);
     }
 
@@ -71,14 +71,5 @@ public class MCVETest {
 
     @Test
     public void mcveTest() {
-        TestRecord result =
-        ctx.insertInto(TEST)
-           .columns(TEST.VALUE)
-           .values(42)
-           .returning(TEST.ID)
-           .fetchOne();
-
-        result.refresh();
-        assertEquals(42, (int) result.getValue());
     }
 }

@@ -3,8 +3,11 @@ DROP SCHEMA IF EXISTS mcve CASCADE;
 CREATE SCHEMA mcve;
 
 CREATE TABLE mcve.test (
-  id    INT NOT NULL AUTO_INCREMENT,
+  id SERIAL PRIMARY KEY,
   value INT,
-  
-  CONSTRAINT pk_test PRIMARY KEY (id) 
+  column_a text,
+  column_b text,
+  deleted boolean DEFAULT false NOT NULL
 );
+
+CREATE INDEX IF NOT EXISTS test_idx ON mcve.test (column_a, column_b) INCLUDE (deleted);
